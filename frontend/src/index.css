@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1, h2, h3 { @apply font-display; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-ink text-canvas px-4 py-2 rounded-sm font-medium tracking-wide hover:bg-slate transition-colors;
+  }
+  .btn-ghost {
+    @apply border border-ink/20 text-ink px-4 py-2 rounded-sm font-medium hover:bg-ink/5 transition-colors;
+  }
+  .card {
+    @apply bg-white border border-ink/10 rounded-sm;
+  }
+  .input {
+    @apply border border-ink/20 rounded-sm px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-brass/50;
+  }
+  .label-eyebrow {
+    @apply text-xs uppercase tracking-[0.15em] text-slate font-medium;
+  }
+}

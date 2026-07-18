@@ -4,6 +4,11 @@ A full-stack student management system: Django REST Framework API +
 React (Vite) frontend, with JWT auth and three roles (admin, teacher,
 student).
 
+## Live Demo
+- Frontend: https://campuscore-portal.netlify.app
+- Backend admin: https://student-management-system-dcuy.onrender.com/admin/
+- Demo login: admin / admin123
+
 ## Features
 
 - JWT authentication with role-based access (admin / teacher / student)

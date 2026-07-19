@@ -5,9 +5,14 @@ React (Vite) frontend, with JWT auth and three roles (admin, teacher,
 student).
 
 ## Live Demo
+
 - Frontend: https://campuscore-portal.netlify.app
 - Backend admin: https://student-management-system-dcuy.onrender.com/admin/
-- Demo login: admin / admin123
+- Demo login: `admin` / `admin123`
+
+> Note: the backend is hosted on Render's free tier, which spins down
+> after inactivity. The first request after a while can take ~50
+> seconds to wake up — this is expected, not a bug.
 
 ## Features
 
@@ -99,13 +104,28 @@ their own records.
 
 ## Deploying
 
-- **Backend**: Render, Railway, or Fly.io all work well with Django.
-  Set `DJANGO_DEBUG=False`, a real `DJANGO_SECRET_KEY`, and the
-  Postgres env vars in `.env.example`. Run `migrate` and
-  `collectstatic` as part of your build step.
-- **Frontend**: Vercel or Netlify. Set `VITE_API_URL` to your deployed
-  backend's `/api` URL, and add your frontend's origin to
-  `CORS_ALLOWED_ORIGINS` on the backend.
+This project is actually deployed using:
+
+- **Backend**: [Render](https://render.com) (free web service)
+  - Build command: `pip install -r requirements.txt && python manage.py collectstatic --noinput`
+  - Start command: `python manage.py migrate && gunicorn config.wsgi --bind 0.0.0.0:$PORT`
+  - Env vars: `DJANGO_SECRET_KEY`, `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS`,
+    `CORS_ALLOWED_ORIGINS` (your frontend's URL), plus the `POSTGRES_*`
+    vars below
+- **Database**: [Neon](https://neon.tech) (free Postgres, doesn't expire
+  or get deleted when idle — just pauses and auto-wakes on the next
+  connection). Set `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`,
+  `POSTGRES_HOST`, `POSTGRES_PORT=5432`, and `POSTGRES_SSLMODE=require`
+  on the backend service.
+- **Frontend**: [Netlify](https://netlify.com)
+  - Base directory: `frontend`
+  - Build command: `npm run build`
+  - Publish directory: `frontend/dist`
+  - Env var: `VITE_API_URL` set to the deployed backend's `/api` URL
+
+Any similar combination (Railway, Fly.io, Vercel, Supabase, etc.) works
+the same way — the settings above are just what this specific deploy
+uses.
 
 ## Notes for extending
 
